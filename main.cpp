@@ -4,7 +4,10 @@
 int main(int argc, char *argv[])
 try
 {
-    std::cout<<"aaa"<<std::endl;
+    PointCloud p;
+    p.load_pcd("pcd/frontfilterTestalpha0.25.pcd");
+    p.searchPlane();
+    p.save_pcd("pcd/searchPlane.pcd");
 }
 catch (const std::exception &e)
 {

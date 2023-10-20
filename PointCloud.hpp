@@ -16,6 +16,7 @@
 #include <pcl/console/parse.h>
 #include <pcl/io/io.h>
 #include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/segmentation/sac_segmentation.h>
 
 class PointCloud
 {
@@ -26,10 +27,13 @@ public:
 
     void load_pcd(const std::string &);
     void save_pcd(const std::string &) const;
+
     pc_rgb_ptr get_cloud() const { return cloud; }
     void filter(void (*func)(pcl::PointXYZRGB &));
     void filter(pcl::PointXYZRGB &(*func)(const pcl::PointXYZRGB &));
     PointCloud extended(const PointCloud &);
+
+    void searchPlane();
 
 private:
     pc_rgb_ptr cloud;
