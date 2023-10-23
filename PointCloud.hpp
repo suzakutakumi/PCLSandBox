@@ -17,6 +17,7 @@
 #include <pcl/io/io.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/extract_indices.h>
 
 class PointCloud
 {
@@ -37,4 +38,5 @@ public:
 
 private:
     pc_rgb_ptr cloud;
+    std::vector<pc_rgb> points_list;
 };

@@ -4,8 +4,13 @@
 int main(int argc, char *argv[])
 try
 {
+    std::string name = "pcd/frontfilterTestalpha0.25.pcd";
+    if (argc >= 2)
+    {
+        name = argv[1];
+    }
     PointCloud p;
-    p.load_pcd("pcd/frontfilterTestalpha0.25.pcd");
+    p.load_pcd(name);
     p.searchPlane();
     p.save_pcd("pcd/searchPlane.pcd");
 }
