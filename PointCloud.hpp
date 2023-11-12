@@ -7,16 +7,26 @@
 #include <string>
 
 // PCL Headers
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/filters/passthrough.h>
 #include <pcl/common/common_headers.h>
-#include <pcl/features/normal_3d.h>
-#include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/console/parse.h>
+
+#include <pcl/io/pcd_io.h>
 #include <pcl/io/io.h>
+
+#include <pcl/point_types.h>
+#include <pcl/point_cloud.h>
+
+#include <pcl/filters/passthrough.h>
 #include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/features/normal_3d.h>
+
+#include <pcl/visualization/pcl_visualizer.h>
+
 #include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/sample_consensus/sac_model_plane.h>
 
 class PointCloud
 {
@@ -34,7 +44,10 @@ public:
     PointCloud extended(const PointCloud &);
 
     void searchPlane();
+    double pointsToPlaneDistance();
 
 private:
     pc_rgb_ptr cloud;
+    std::vector<pc_rgb> points_list;
+    // std::vector<std::vector<float>> coefficients_list;
 };
