@@ -19,7 +19,7 @@ void PointCloud::searchPlane()
     seg.setOptimizeCoefficients(true);     // 外れ値の存在を前提とし最適化を行う
     seg.setModelType(pcl::SACMODEL_PLANE); // モードを平面検出に設定
     seg.setMethodType(pcl::SAC_RANSAC);    // 検出方法をRANSACに設定
-    seg.setDistanceThreshold(0.01);        // しきい値を設定
+    seg.setDistanceThreshold(0.02);        // しきい値を設定
 
     pcl::ExtractIndices<pcl::PointXYZRGB> extract;
     pc_rgb_ptr filtered = cloud;
@@ -41,12 +41,26 @@ void PointCloud::searchPlane()
             points.push_back(p);
         }
         points_list.push_back(points);
+        // coefficients_list.push_back(coefficients->values);
 
         extract.setInputCloud(cloud);
         extract.setIndices(inliers);
         extract.setNegative(true);
         extract.filter(*filtered);
     }
+}
+
+double PointCloud::pointsToPlaneDistance(){
+    double total_distance=0;
+    // for(int i=0;i<points_list.size();i++){
+    //     std::vector<double> distances(points_list[i].size());
+    //     for(int j=0;j<points_list[i].size();j++){
+    //         auto p=points_list[i][j];
+    //         distances[i]=pcl::pointToPlaneDistance(p,coefficients_list[i][0],coefficients_list[i][1],coefficients_list[i][2],coefficients_list[i][3]);
+    //         total_distance+=distances[i];
+    //     }
+    // }
+    return total_distance;
 }
 
 void PointCloud::save_pcd(const std::string &n) const
@@ -73,7 +87,7 @@ void PointCloud::save_pcd(const std::string &n) const
         // Cloud_Filter2.setFilterLimits(-3.0, 3.0);         // Set accepted interval values
         // Cloud_Filter2.filter(*cloud);                     // Filtered Cloud Outputted
 
-        pcl::io::savePCDFileBinary(name, *cloud);
+        pcl::io::savePCDFileBinary(name, points);
     }
 }
 

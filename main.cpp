@@ -12,7 +12,8 @@ try
     PointCloud p;
     p.load_pcd(name);
     p.searchPlane();
-    p.save_pcd("pcd/searchPlane.pcd");
+    p.pointsToPlaneDistance();
+    p.save_pcd("pcd/searchPlaneFront");
 }
 catch (const std::exception &e)
 {
